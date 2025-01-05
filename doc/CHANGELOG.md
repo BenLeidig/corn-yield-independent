@@ -23,3 +23,8 @@
 ### acquired weather data
 - **Description:** Added code to programmatically acquire weather data using CSV web links in `acquisition.ipynb`.
 - **Additional Information:** Also, fixed an error when fetching the price received data via the USDA NASS API.
+
+## [2025-01-04] - Benjamin Leidig
+### code comments to `acquisition.ipynb`
+- **Description:** Added code comments to `acquisition.ipynb`.
+- **Additional Information:** NA.
