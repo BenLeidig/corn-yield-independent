@@ -28,3 +28,8 @@
 ### code comments to `acquisition.ipynb`
 - **Description:** Added code comments to `acquisition.ipynb`.
 - **Additional Information:** NA.
+
+## [2025-01-04] - Benjamin Leidig
+### created `acquisition.py`
+- **Description:** Moved `acquisition.ipynb` to `doc/notebooks` and created `acquisition.py`, which contains only code.
+- **Additional Information:** Added loading signals to ensure user confidence in program processing.
