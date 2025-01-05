@@ -18,3 +18,8 @@
 ### acquired price received data
 - **Description:** Added code to programmatically acquire price received data using the USDA NASS API in `acquisition.ipynb`.
 - **Additional Information:** Fixed a line of code in the cell that saves `yield_raw.csv` to use less computer storage. Also added `data/raw` to the gitignore.
+
+## [2025-01-04] - Benjamin Leidig
+### acquired weather data
+- **Description:** Added code to programmatically acquire weather data using CSV web links in `acquisition.ipynb`.
+- **Additional Information:** Also, fixed an error when fetching the price received data via the USDA NASS API.
