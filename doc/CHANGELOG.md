@@ -34,7 +34,12 @@
 - **Description:** Moved `acquisition.ipynb` to `doc/notebooks` and created `acquisition.py`, which contains only code.
 - **Additional Information:** Added loading signals to ensure user confidence in program processing.
 
-## [2025-01-04] - Benjamin Leidig
+## [2025-01-08] - Benjamin Leidig
 ### created `integration.ipynb`
 - **Description:** Added code to programmatically integrated data from each raw data source.
 - **Additional Information:** NA.
+
+## [2025-01-08] - Benjamin Leidig
+### created `integration.py`
+- **Description:** Created python file for `integration.ipynb`.
+- **Additional Information:** Fixed date of previous push. Added code comments in `integration.ipynb` and the exportation of the integrated dataset into `data/raw`.
