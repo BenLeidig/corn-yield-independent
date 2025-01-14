@@ -2,9 +2,9 @@ import pandas as pd
 
 states = ['ILLINOIS', 'INDIANA', 'IOWA', 'MINNESOTA', 'MISSOURI', 'NEBRASKA']
 
-yield_raw = pd.read_csv('../../data/raw/yield_raw.csv')
-price_received_raw = pd.read_csv('../../data/raw/price_received_raw.csv')
-weather_raw = pd.read_csv('../../data/raw/weather_raw.csv')
+yield_raw = pd.read_csv('data/raw/yield_raw.csv')
+price_received_raw = pd.read_csv('data/raw/price_received_raw.csv')
+weather_raw = pd.read_csv('data/raw/weather_raw.csv')
 
 yield_raw = yield_raw[(yield_raw['state_name'].isin(states)) & (yield_raw['reference_period_desc'] == 'YEAR')]\
     .drop_duplicates(subset=['year', 'state_name', 'util_practice_desc'])

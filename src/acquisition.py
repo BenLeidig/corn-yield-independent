@@ -68,54 +68,37 @@ price_received_raw.to_csv('data/raw/price_received_raw.csv', index=False)
 print('Data saved as price_received_raw.csv')
 
 print('\nLoading...\n')
-months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'semptember', 'october', 'november', 'december']
-state_numbers = [11, 12, 13, 21, 23, 25]
-count1 = 0
-count2 = 0
 
-for state_number in state_numbers:
+months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+state_numbers = [11, 12, 13, 21, 23, 25]
+
+years = list(range(1895, 2025))*6
+years.sort()
+list_temp = list(range(0, 6))*130
+df_empty = pd.DataFrame({'year':years, 'state':list_temp})
+df_empty['state'] = df_empty['state'].replace({i: states[i] for i in range(len(states))})
+
+weather_raw = df_empty.copy()
+
+for s, state_number in enumerate(state_numbers):
     for variable in ['tavg', 'tmax', 'tmin', 'pcp', 'pdsi']:
-        for month_number in range(4, 12):
+        for m, month in enumerate(months):
+
+            state = states[s]
+
             skiprows = 3 if variable == 'pdsi' else 4
-            link = f'https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/statewide/time-series/{state_number}/{variable}/12/{month_number}/1895-2024.csv?base_prd=true&begbaseyear=1895&endbaseyear=2000'
-            if count1 == 0:
-                state_weather = pd.read_csv(link, skiprows=skiprows)
-                state_weather.drop(
-                    columns=state_weather.columns[2:],
-                    inplace=True
-                )
-                state_weather.rename(
-                    columns={state_weather.columns[1]:f'{months[month_number]}_{variable}'},
-                    inplace=True
-                )
-                state_weather['Date'] = state_weather['Date'].apply(lambda x: int(str(x)[:4]))
-                count1 += 1
-            else:
-                temp = pd.read_csv(link, skiprows=skiprows)
-                temp.drop(
-                    columns=temp.columns[2:],
-                    inplace=True
-                )
-                temp.rename(
-                    columns={temp.columns[1]:f'{months[month_number]}_{variable}'},
-                    inplace=True
-                )
-                temp['Date'] = temp['Date'].apply(lambda x: int(str(x)[:4]))
-                state_weather = state_weather.merge(
-                    temp,
-                    on='Date',
-                    how='outer'
-                )
-                count1 += 1
-    state_weather['state'] = states[state_numbers.index(state_number)]
-    if count2 == 0:
-        weather_raw = state_weather.copy()
-        count2 += 1
-        count1 = 0
-    else:
-        weather_raw = pd.concat([weather_raw, weather_raw])
-        count2 += 1
-        count1 = 0
+
+            link = f'https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/statewide/time-series/{state_number}/{variable}/12/{m+1}/1895-2024.csv?base_prd=true&begbaseyear=1895&endbaseyear=2000'
+
+            temp = pd.read_csv(link, skiprows=skiprows)
+
+            temp['Date'] = temp['Date'].apply(lambda x: int(str(x)[:4]))
+
+            temp.rename(columns={'Date':'year'}, inplace=True)
+
+            temp.rename(columns={'Value':f'{month}_{variable}'}, inplace=True)
+
+            weather_raw.loc[weather_raw['state'] == state, f'{month}_{variable}'] = weather_raw.loc[weather_raw['state'] == state, 'year'].map(temp.set_index('year')[f'{month}_{variable}'])
 
 weather_raw.to_csv('data/raw/weather_raw.csv', index=False)
 print('Data saved as weather_raw.csv')

@@ -43,3 +43,8 @@
 ### created `integration.py`
 - **Description:** Created python file for `integration.ipynb`.
 - **Additional Information:** Fixed date of previous push. Added code comments in `integration.ipynb` and the exportation of the integrated dataset into `data/raw`.
+
+## [2025-01-14] - Benjamin Leidig
+### fixed bug in `acquisition.py`
+- **Description:** Used a different algorithm to fetch all historical weather in `acquisition.py` to patch a bug that made all of `state_name` `ILLINOIS`.
+- **Additional Information:** Added some other work (`cleaning.ipynb`) that will elaborate upon in a future push.
