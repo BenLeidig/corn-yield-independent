@@ -28,23 +28,20 @@ plt.savefig(
 )
 plt.show()
 
-df_1908_2024 = df[df['year'] >= 1908].copy()
-
-df_missing = df_1908_2024.set_index(['year', 'state_name']).isna()
+df_missing = df_1866_2024.set_index(['year', 'state_name']).isna()
 df_missing.replace(to_replace=True, value=1, inplace=True)
 df_missing.replace(to_replace=False, value=0, inplace=True)
-df_temp = df_missing.reset_index()
+df_missing.reset_index(inplace=True)
 
-df_nan_grouped = df_temp.groupby(['year', 'state_name']).agg('sum').reset_index()
-df_nan_grouped['nan_total'] = df_nan_grouped.iloc[:,2:].sum(axis=1)
+df_missing['nan_total'] = df_missing.iloc[:,2:].sum(axis=1)
 
-states = list(df_nan_grouped['state_name'].unique())
+states = list(df_missing['state_name'].unique())
 bottom = 0
 fig, ax = plt.subplots()
 
 for i, state in enumerate(states):
 
-    df_temp = df_nan_grouped[df_nan_grouped['state_name'] == state]
+    df_temp = df_missing[df_missing['state_name'] == state]
     years = df_temp['year'].values
     
     ax.bar(
@@ -66,7 +63,7 @@ plt.tight_layout()
 plt.savefig('results/cleaning/stacked_bar.png')
 plt.show()
 
-df_1919_2023 = df_1908_2024[(df_1908_2024['year'] >= 1919) & (df_1908_2024['year'] <= 2023)]
+df_1919_2023 = df_1866_2024[(df_1866_2024['year'] >= 1919) & (df_1866_2024['year'] <= 2023)]
 
 for year in range(1919, 1949):
     avg = df_1919_2023[df_1919_2023['year'] == year]['marketing_year'].mean()
