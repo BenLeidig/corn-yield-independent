@@ -48,3 +48,8 @@
 ### fixed bug in `acquisition.py`
 - **Description:** Used a different algorithm to fetch all historical weather in `acquisition.py` to patch a bug that made all of `state_name` `ILLINOIS`.
 - **Additional Information:** Added some other work (`cleaning.ipynb`) that will elaborate upon in a future push.
+
+## [2025-01-14] - Benjamin Leidig
+### cleaned dataset
+- **Description:** Created `cleaning.ipynb` and `cleaning.py` that explore dataset nullity and clean the data of interest. Timeframe was readjusted and code comments will be added later.
+- **Additional Information:** Saved cleaning visualizations to `results/cleaning`.

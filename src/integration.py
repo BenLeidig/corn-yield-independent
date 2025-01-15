@@ -21,6 +21,10 @@ price_received_raw = price_received_raw.pivot(
     values='Value'
 ).reset_index()
 
+for x in price_received_raw.columns:
+    price_received_raw.rename(columns={x:x+'_preceived'}, inplace=True) if x in months else x
+    price_received_raw.rename(columns={'MARKETING YEAR':'marketing_year'}, inplace=True) if x not in months else x
+
 weather_raw = weather_raw.rename(columns={'Date':'year', 'state':'state_name'})
 
 temp = yield_raw.merge(price_received_raw, on=['year', 'state_name'], how='outer')
