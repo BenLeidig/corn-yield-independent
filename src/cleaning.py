@@ -1,6 +1,7 @@
 import pandas as pd
 import missingno as msno
 import matplotlib.pyplot as plt
+from scipy.stats import ks_2samp
 
 df = pd.read_csv('data/raw/integrated.csv')
 
@@ -110,5 +111,44 @@ plt.savefig(
     f'results/cleaning/clean_msno_bar.png'
 )
 plt.show()
+
+fig, axes = plt.subplots(
+    1, 2,
+    figsize=(15, 5),
+    sharey=True
+)
+
+axes[0].hist(
+    x=df_1866_2024[df_1866_2024['state_name'] == 'MISSOURI']['marketing_year'],
+    bins=15,
+    color='firebrick',
+    edgecolor='black'
+)
+axes[0].text(
+    4.25, 25,
+    horizontalalignment='center',
+    s='Pre-cleaning'
+)
+
+axes[1].hist(
+    x=df_1919_2023[df_1919_2023['state_name'] == 'MISSOURI']['marketing_year'],
+    bins=15,
+    color='skyblue',
+    edgecolor='black'
+)
+axes[1].text(
+    4, 25,
+    horizontalalignment='center',
+    s='Post-cleaning'
+)
+
+fig.suptitle('Comparing `marketing_year` for MISSOURI Pre- and Post-cleaning', fontweight='bold')
+fig.savefig('results/cleaning/marketing_year_hist.png')
+
+pre_cleaning_preceived = df_1866_2024[df_1866_2024['state_name'] == 'MISSOURI']['marketing_year']
+post_cleaning_preceived = df_1919_2023[df_1919_2023['state_name'] == 'MISSOURI']['marketing_year']
+
+statistic, pvalue = ks_2samp(pre_cleaning_preceived, post_cleaning_preceived, nan_policy='omit')
+print(f'Reject null. pvalue={round(pvalue, 4)}, significance level=0.05') if pvalue<0.05 else print(f'Fail to reject null. pvalue={round(pvalue, 4)}, significance level=0.05')
 
 df_1919_2023.to_csv('data/clean/clean.csv', index=False)

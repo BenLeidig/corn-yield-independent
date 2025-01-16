@@ -58,3 +58,8 @@
 ### code comments to `cleaning.ipynb`
 - **Description:** Added code comments to `cleaning.ipynb`.
 - **Additional Information:** Shortened and improved some code in `cleaning.ipynb` and `cleaning.py`. Also, fixed the date of the previous change description in the `CHANGELOG.md`.
+
+## [2025-01-15] - Benjamin Leidig
+### added `effects on the data`
+- **Description:** Added a section, `Effects on the Data` to `cleaning.ipynb` and `cleaning.py` to explore how the data changed due to imputations and cleaning decisions.
+- **Additional Information:** It was found that there was a statistical change in distribution of the variable, `marketing_year`, for *MISSOURI*. However, this makes sense as there is a clear increasing temporal trend in `marketing_year` across each state individually, including for *MISSOURI*. Thus, it was determined that all cleaning decisions were statistically sound.
