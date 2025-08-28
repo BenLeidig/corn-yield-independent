@@ -6,6 +6,7 @@ from io import StringIO
 print('\nLoading...\n')
 with open('keys/api_key.txt', 'r') as file:
     usda_nass_key = file.read()
+print('Access key loaded.')
 
 states = ['ILLINOIS', 'INDIANA', 'IOWA', 'MINNESOTA', 'MISSOURI', 'NEBRASKA']
 parameters = {
